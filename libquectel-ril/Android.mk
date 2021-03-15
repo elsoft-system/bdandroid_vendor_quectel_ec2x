@@ -1,0 +1,64 @@
+LOCAL_PATH := $(my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libreference-ril-quectel
+LOCAL_MODULE_SUFFIX :=.so
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_VENDOR_MODULE := true
+ifdef TARGET_2ND_ARCH
+LOCAL_MULTILIB := both
+LOCAL_MODULE_PATH_64 := $(TARGET_OUT_VENDOR)/lib64
+LOCAL_SRC_FILES_64 := arm64-v8a/libreference-ril.so
+LOCAL_MODULE_PATH_32 := $(TARGET_OUT_VENDOR)/lib
+LOCAL_SRC_FILES_32 := armeabi/libreference-ril.so
+else
+ifeq ($(TARGET_ARCH),arm64)
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/lib64
+LOCAL_SRC_FILES := arm64-v8a/libreference-ril.so
+else
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/lib
+LOCAL_SRC_FILES := armeabi/libreference-ril.so
+endif
+endif
+LOCAL_OVERRIDES_PACKAGES := libreference-ril
+PACKAGES.$(LOCAL_MODULE).OVERRIDES := libreference-ril
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := chat
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/bin
+LOCAL_MODULE_TAGS := optional
+ifeq ($(TARGET_ARCH),arm64)
+LOCAL_SRC_FILES := arm64-v8a/$(LOCAL_MODULE)
+else
+LOCAL_SRC_FILES := armeabi-v7a/$(LOCAL_MODULE)
+endif
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := ip-down
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/ppp
+LOCAL_MODULE_TAGS := optional
+LOCAL_VENDOR_MODULE := true
+ifeq ($(TARGET_ARCH),arm64)
+LOCAL_SRC_FILES := arm64-v8a/$(LOCAL_MODULE)
+else
+LOCAL_SRC_FILES := armeabi-v7a/$(LOCAL_MODULE)
+endif
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := ip-up
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/ppp
+LOCAL_MODULE_TAGS := optional
+LOCAL_VENDOR_MODULE := true
+ifeq ($(TARGET_ARCH),arm64)
+LOCAL_SRC_FILES := arm64-v8a/$(LOCAL_MODULE)
+else
+LOCAL_SRC_FILES := armeabi-v7a/$(LOCAL_MODULE)
+endif
+include $(BUILD_PREBUILT)
