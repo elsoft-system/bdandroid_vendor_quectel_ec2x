@@ -1,0 +1,5 @@
+service ril-daemon /vendor/bin/hw/rild-quectel -l /vendor/lib64/libreference-ril-quectel.so
+    class main
+    user radio
+    group radio cache inet misc audio log readproc wakelock sdcard_rw
+    capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
