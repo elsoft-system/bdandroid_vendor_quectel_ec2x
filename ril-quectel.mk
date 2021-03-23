@@ -14,3 +14,6 @@ PRODUCT_PACKAGES += \
     rild-quectel \
     QAndroidLog \
     QFirehose
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.default_network=10
